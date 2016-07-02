@@ -118,7 +118,7 @@ namespace NewtonTraining {
 		}
 	}
 
-	public class Person : IComparable<Person>, IParsee {
+	public class Person : IParsee {
 
 		public Person(string firstName, string lastName, DateTime birthDate, GenderEnum gender) {
 			Name = new FullName() { FirstName = firstName, LastName = lastName };
@@ -154,15 +154,21 @@ namespace NewtonTraining {
 			return Tuple.Create(Name, BirthDate, Gender).GetHashCode();
 		}
 
-		public int CompareTo(Person other) {
-			if (!Gender.Equals(other.Gender))
-				return Gender.CompareTo(other.Gender);
+		public int CompareTo(IParsee other) {
 
-			if (!Name.Equals(other.Name))
-				return Name.CompareTo(other.Name);
+			var person = other as Person;
 
-			if (BirthDate != other.BirthDate)
-				return BirthDate.CompareTo(other.BirthDate);
+			if (person == null)
+				throw new Exception("Trying to compare with an unsupported object!");
+
+			if (!Gender.Equals(person.Gender))
+				return Gender.CompareTo(person.Gender);
+
+			if (!Name.Equals(person.Name))
+				return Name.CompareTo(person.Name);
+
+			if (BirthDate != person.BirthDate)
+				return BirthDate.CompareTo(person.BirthDate);
 
 			return 0;
 		}
@@ -191,7 +197,7 @@ namespace NewtonTraining {
 		}
 	}
 
-	public interface IParsee { }
+	public interface IParsee: IComparable<IParsee> { }
 
 	public interface IParser<out T> where T: IParsee {
 		IEnumerable<T> Parse(string text);
