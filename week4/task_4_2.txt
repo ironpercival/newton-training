@@ -1,0 +1,4 @@
+﻿Написать бота, который скачивает и сохраняет статьи журнала "Наукові Записки НаУКМА" за 2015 год 
+http://nz.ukma.edu.ua/index.php?option=com_content&task=category&sectionid=10&id=60&Itemid=47
+Добавьте паузу 5 сек между запросами!!!
+Задание выполнить в виде .NET Core Console App.
